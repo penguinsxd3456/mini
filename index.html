@@ -3,20 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Minis Designs</title>
+  <title>MD Design Gallery</title>
   <style>
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      color: #333;
+      background-color: #f5f5f5;
     }
 
     header {
-      background-color: #fff;
-      padding: 20px;
+      background-color: #ffffff;
+      padding: 30px 0;
       text-align: center;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     }
 
     header img {
@@ -24,28 +23,38 @@
       height: auto;
     }
 
+    h1 {
+      text-align: center;
+      font-size: 28px;
+      margin-top: 40px;
+      color: #333;
+    }
+
     .gallery {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       padding: 40px 20px;
-      gap: 20px;
+      gap: 25px;
     }
 
     .gallery img {
-      max-width: 400px;
       width: 100%;
-      height: auto;
+      max-width: 420px;
       border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-      transition: transform 0.3s;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s ease;
     }
 
     .gallery img:hover {
-      transform: scale(1.05);
+      transform: scale(1.03);
     }
 
     @media (max-width: 600px) {
+      .gallery {
+        padding: 20px 10px;
+      }
+
       .gallery img {
         max-width: 90%;
       }
@@ -53,14 +62,18 @@
   </style>
 </head>
 <body>
+
   <header>
-    <img src="IMG_5288.png" alt="MD Logo" />
+    <img src="IMG_5288.png" alt="MD Header Logo">
   </header>
 
+  <h1>Design Showcase</h1>
+
   <section class="gallery">
-    <img src="huge_pulls_watermark.jpg" alt="Design 1">
-    <img src="251746A8-335D-49A1-AB30-D41A1B1E2152.jpeg" alt="Design 2">
-    <img src="swags_with_water.jpg" alt="Design 3">
+    <img src="251746A8-335D-49A1-AB30-D41A1B1E2152.jpeg" alt="Design One">
+    <img src="huge_pulls_watermark.jpg" alt="Design Two">
+    <img src="swags_with_water.jpg" alt="Design Three">
   </section>
+
 </body>
 </html>
