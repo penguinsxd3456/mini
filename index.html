@@ -153,6 +153,63 @@
       font-size: 20px;
     }
 
+    /* Contact Me button styles */
+    .contact-btn {
+      display: block;
+      margin: 30px auto 10px;
+      padding: 12px 24px;
+      font-size: 16px;
+      cursor: pointer;
+      border: 2px solid var(--text-color);
+      background: none;
+      color: var(--text-color);
+      border-radius: 8px;
+      transition: background-color 0.3s, color 0.3s;
+      max-width: 200px;
+      text-align: center;
+    }
+
+    .contact-btn:hover {
+      background-color: var(--text-color);
+      color: var(--bg-color);
+    }
+
+    /* Contact info panel: hidden by default, slide down animation */
+    .contact-panel {
+      max-width: 500px;
+      margin: 0 auto 40px;
+      padding: 20px 25px;
+      background-color: var(--header-bg);
+      border: 2px solid var(--text-color);
+      border-radius: 16px;
+      overflow: hidden;
+
+      max-height: 0;
+      opacity: 0;
+      transition: max-height 0.5s ease, opacity 0.5s ease;
+    }
+
+    .contact-panel.open {
+      max-height: 200px; /* enough to show content */
+      opacity: 1;
+      margin-top: 10px;
+    }
+
+    .contact-item {
+      margin-bottom: 15px;
+      font-size: 18px;
+      color: var(--text-color);
+    }
+
+    .contact-item a {
+      color: #007acc;
+      text-decoration: none;
+    }
+
+    .contact-item a:hover {
+      text-decoration: underline;
+    }
+
     @media (max-width: 600px) {
       .gallery {
         padding: 20px 10px;
@@ -169,6 +226,14 @@
       .toggle-btn {
         top: 10px;
         right: 10px;
+      }
+
+      .contact-btn {
+        max-width: 90%;
+      }
+
+      .contact-panel {
+        max-width: 90%;
       }
     }
   </style>
@@ -195,6 +260,17 @@
         <div class="name">swag</div>
         <div class="text">That's awesome, you're the GOAT!</div>
         <div class="stars">★★★★★</div>
+      </div>
+    </div>
+
+    <button class="contact-btn" id="contactBtn">Contact Me</button>
+
+    <div class="contact-panel" id="contactPanel">
+      <div class="contact-item">
+        <strong>Email:</strong> <a href="mailto:minithumbnails@gmail.com">minithumbnails@gmail.com</a>
+      </div>
+      <div class="contact-item">
+        <strong>Discord Server:</strong> <a href="https://discord.gg/T2uxFKyuZy" target="_blank" rel="noopener noreferrer">https://discord.gg/T2uxFKyuZy</a>
       </div>
     </div>
   </section>
@@ -241,6 +317,14 @@
 
         customersObserver.observe(customersBox);
       }
+
+      // Contact Me button toggle
+      const contactBtn = document.getElementById("contactBtn");
+      const contactPanel = document.getElementById("contactPanel");
+
+      contactBtn.addEventListener("click", () => {
+        contactPanel.classList.toggle("open");
+      });
     });
   </script>
 
