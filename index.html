@@ -79,32 +79,29 @@
       max-width: 420px;
       border-radius: 10px;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+      
+      /* Start hidden and translated */
       opacity: 0;
       transform: translateY(50px);
-      animation: slideIn 0.8s ease-out forwards;
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
     }
 
-    .gallery img:nth-child(2) {
-      animation-delay: 0.3s;
+    /* Animation class for gallery images */
+    .gallery img.slide-in {
+      opacity: 1;
+      transform: translateY(0);
     }
 
-    .gallery img:nth-child(3) {
-      animation-delay: 0.6s;
-    }
-
-    .gallery img:nth-child(4) {
-      animation-delay: 0.9s;
-    }
-
-    @keyframes slideIn {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+    /* Add staggered delays via inline style or JS (optional) */
+    /* For example: */
+    /* .gallery img:nth-child(1) { transition-delay: 0s; }
+       .gallery img:nth-child(2) { transition-delay: 0.3s; }
+       .gallery img:nth-child(3) { transition-delay: 0.6s; }
+    */
 
     .gallery img:hover {
       transform: scale(1.03);
+      transition: transform 0.3s ease;
     }
 
     .customers {
@@ -124,7 +121,7 @@
       border-radius: 16px;
       padding: 30px 20px;
 
-      /* Start hidden and translated for scroll animation */
+      /* Start hidden and translated */
       opacity: 0;
       transform: translateY(50px);
       transition: opacity 0.8s ease-out, transform 0.8s ease-out;
@@ -185,16 +182,16 @@
 <body>
 
   <header>
-    <img src="IMG_5288.png" alt="Mini Designs Header">
+    <img src="IMG_5288.png" alt="Mini Designs Header" />
     <button class="toggle-btn" onclick="toggleDarkMode()" id="modeToggle">🌙 Dark Mode</button>
   </header>
 
   <h1>Past Thumbnails</h1>
 
   <section class="gallery">
-    <img src="251746A8-335D-49A1-AB30-D41A1B1E2152.jpeg" alt="Design One">
-    <img src="huge_pulls_watermark.jpg" alt="Design Two">
-    <img src="swags_with_water.jpg" alt="Design Three">
+    <img src="251746A8-335D-49A1-AB30-D41A1B1E2152.jpeg" alt="Design One" style="transition-delay: 0s;" />
+    <img src="huge_pulls_watermark.jpg" alt="Design Two" style="transition-delay: 0.3s;" />
+    <img src="swags_with_water.jpg" alt="Design Three" style="transition-delay: 0.6s;" />
   </section>
 
   <section class="customers">
@@ -216,24 +213,43 @@
       btn.innerHTML = isDark ? "☀️ Light Mode" : "🌙 Dark Mode";
     }
 
-    // Scroll animation for customers box
-    document.addEventListener("DOMContentLoaded", function() {
-      const customersBox = document.querySelector('.customers-box');
+    document.addEventListener("DOMContentLoaded", () => {
+      // Animate gallery images on scroll, reset animation when out of view
+      const galleryImages = document.querySelectorAll(".gallery img");
 
-      const observer = new IntersectionObserver((entries, observer) => {
+      const galleryObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            entry.target.classList.add('slide-in');
-            observer.unobserve(entry.target); // Animate once
+            entry.target.classList.add("slide-in");
+          } else {
+            entry.target.classList.remove("slide-in");
           }
         });
       }, { threshold: 0.1 });
 
-      if(customersBox) {
-        observer.observe(customersBox);
+      galleryImages.forEach(img => {
+        galleryObserver.observe(img);
+      });
+
+      // Animate customers box on scroll, reset animation when out of view
+      const customersBox = document.querySelector(".customers-box");
+
+      if (customersBox) {
+        const customersObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("slide-in");
+            } else {
+              entry.target.classList.remove("slide-in");
+            }
+          });
+        }, { threshold: 0.1 });
+
+        customersObserver.observe(customersBox);
       }
     });
   </script>
 
 </body>
 </html>
+
