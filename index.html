@@ -59,6 +59,19 @@
       color: var(--bg-color);
     }
 
+    .contact-info {
+      margin-top: 80px;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+
+    .contact-info.slide-in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     h1 {
       text-align: center;
       font-size: 28px;
@@ -183,6 +196,11 @@
     <button class="toggle-btn" onclick="toggleDarkMode()" id="modeToggle">🌙 Dark Mode</button>
   </header>
 
+  <div class="contact-info" id="contactInfo">
+    <p>Email: <a href="mailto:minithumbnails@gmail.com">minithumbnails@gmail.com</a></p>
+    <p>Discord: <a href="https://discord.gg/T2uxFKyuZy" target="_blank">Join Server</a></p>
+  </div>
+
   <h1>Past Thumbnails</h1>
 
   <section class="gallery">
@@ -228,6 +246,7 @@
     document.addEventListener("DOMContentLoaded", function() {
       observeAnimatedElements('.customers-box', 'slide-in');
       observeAnimatedElements('.gallery img', 'in-view');
+      observeAnimatedElements('.contact-info', 'slide-in');
     });
   </script>
 
