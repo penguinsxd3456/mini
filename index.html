@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Mini Designs</title>
+  <title>Minis Designs</title>
   <style>
     body {
       margin: 0;
@@ -50,6 +50,39 @@
       transform: scale(1.03);
     }
 
+    .customers {
+      background-color: #fff;
+      padding: 50px 20px;
+      text-align: center;
+    }
+
+    .review {
+      max-width: 600px;
+      margin: 0 auto 30px;
+      background-color: #f9f9f9;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .review .name {
+      font-weight: bold;
+      font-size: 18px;
+      margin-bottom: 10px;
+      color: #222;
+    }
+
+    .review .text {
+      font-style: italic;
+      margin-bottom: 15px;
+      color: #555;
+    }
+
+    .stars {
+      color: #FFD700;
+      font-size: 20px;
+    }
+
     @media (max-width: 600px) {
       .gallery {
         padding: 20px 10px;
@@ -57,6 +90,10 @@
 
       .gallery img {
         max-width: 90%;
+      }
+
+      .review {
+        margin: 0 10px 30px;
       }
     }
   </style>
@@ -67,12 +104,21 @@
     <img src="IMG_5288.png" alt="MD Header Logo">
   </header>
 
-  <h1>Designs</h1>
+  <h1>Design Showcase</h1>
 
   <section class="gallery">
     <img src="251746A8-335D-49A1-AB30-D41A1B1E2152.jpeg" alt="Design One">
     <img src="huge_pulls_watermark.jpg" alt="Design Two">
     <img src="swags_with_water.jpg" alt="Design Three">
+  </section>
+
+  <section class="customers">
+    <h1>Customers</h1>
+    <div class="review">
+      <div class="name">swag</div>
+      <div class="text">That's awesome, you're the GOAT!</div>
+      <div class="stars">★★★★★</div>
+    </div>
   </section>
 
 </body>
