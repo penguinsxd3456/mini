@@ -76,7 +76,7 @@
 
     .gallery img {
       width: 100%;
-      max-width: 420px;
+      max-width: 440px;
       border-radius: 10px;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
       opacity: 0;
@@ -193,6 +193,9 @@
 
     .contact-info.show {
       display: block;
+    }
+
+    .contact-info.slide-in {
       opacity: 1;
       transform: translateY(0);
     }
@@ -263,16 +266,26 @@
       btn.innerHTML = isDark ? "☀️ Light Mode" : "🌙 Dark Mode";
     }
 
-    // Scroll Observer for animations
+    // Scroll Observer
     document.addEventListener("DOMContentLoaded", function () {
-      const animatedItems = document.querySelectorAll('.gallery img, .customers-box, .contact-btn');
+      const animatedItems = document.querySelectorAll(
+        '.gallery img, .customers-box, .contact-btn, #contactInfo'
+      );
 
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('slide-in');
+          if (entry.target.id === "contactInfo") {
+            if (entry.isIntersecting && contactInfo.classList.contains("show")) {
+              entry.target.classList.add("slide-in");
+            } else {
+              entry.target.classList.remove("slide-in");
+            }
           } else {
-            entry.target.classList.remove('slide-in'); // Reset animation
+            if (entry.isIntersecting) {
+              entry.target.classList.add("slide-in");
+            } else {
+              entry.target.classList.remove("slide-in");
+            }
           }
         });
       }, { threshold: 0.1 });
@@ -281,11 +294,14 @@
     });
 
     // Contact toggle
-    document.querySelector('.contact-btn').addEventListener('click', () => {
-      const contactInfo = document.getElementById('contactInfo');
+    const contactBtn = document.querySelector('.contact-btn');
+    const contactInfo = document.getElementById('contactInfo');
+
+    contactBtn.addEventListener('click', () => {
       contactInfo.classList.toggle('show');
     });
   </script>
 
 </body>
 </html>
+
