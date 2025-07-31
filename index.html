@@ -76,16 +76,18 @@
     }
 
     /* Start hidden and shifted down for all images */
-    .gallery img {
-      width: 100%;
-      max-width: 420px;
-      border-radius: 10px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-      opacity: 0;
-      transform: translateY(50px);
-      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-      will-change: transform, opacity;
-    }
+   .gallery img {
+  display: block;
+  max-width: 420px;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  will-change: transform, opacity;
+}
 
     /* When visible, fly in */
     .gallery img.slide-in {
