@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Mini Designs</title>
   <style>
     :root {
@@ -72,6 +72,9 @@
       justify-content: center;
       padding: 40px 20px;
       gap: 25px;
+
+      /* Force enough height so scrolling is needed */
+      min-height: 700px;
     }
 
     .gallery img {
@@ -124,12 +127,13 @@
       border-radius: 16px;
       padding: 30px 20px;
 
-      /* Start hidden and translated for scroll animation */
+      /* Hidden and shifted down initially */
       opacity: 0;
       transform: translateY(50px);
       transition: opacity 0.8s ease-out, transform 0.8s ease-out;
     }
 
+    /* When scrolled into view, slide up and fade in */
     .customers-box.slide-in {
       opacity: 1;
       transform: translateY(0);
@@ -185,16 +189,16 @@
 <body>
 
   <header>
-    <img src="IMG_5288.png" alt="Mini Designs Header">
+    <img src="IMG_5288.png" alt="Mini Designs Header" />
     <button class="toggle-btn" onclick="toggleDarkMode()" id="modeToggle">🌙 Dark Mode</button>
   </header>
 
   <h1>Past Thumbnails</h1>
 
   <section class="gallery">
-    <img src="251746A8-335D-49A1-AB30-D41A1B1E2152.jpeg" alt="Design One">
-    <img src="huge_pulls_watermark.jpg" alt="Design Two">
-    <img src="swags_with_water.jpg" alt="Design Three">
+    <img src="251746A8-335D-49A1-AB30-D41A1B1E2152.jpeg" alt="Design One" />
+    <img src="huge_pulls_watermark.jpg" alt="Design Two" />
+    <img src="swags_with_water.jpg" alt="Design Three" />
   </section>
 
   <section class="customers">
@@ -216,18 +220,17 @@
       btn.innerHTML = isDark ? "☀️ Light Mode" : "🌙 Dark Mode";
     }
 
-    // Scroll animation for customers box
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", () => {
       const customersBox = document.querySelector('.customers-box');
 
       const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             entry.target.classList.add('slide-in');
-            observer.unobserve(entry.target); // Animate once
+            observer.unobserve(entry.target);
           }
         });
-      }, { threshold: 0.1 });
+      }, { threshold: 0.05 });
 
       if(customersBox) {
         observer.observe(customersBox);
