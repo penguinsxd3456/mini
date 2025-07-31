@@ -72,11 +72,10 @@
       justify-content: center;
       padding: 40px 20px;
       gap: 25px;
-
-      /* Force enough height so scrolling is needed */
-      min-height: 700px;
+      min-height: 700px; /* ensure scrolling needed */
     }
 
+    /* Start hidden and shifted down for all images */
     .gallery img {
       width: 100%;
       max-width: 420px;
@@ -84,26 +83,14 @@
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
       opacity: 0;
       transform: translateY(50px);
-      animation: slideIn 0.8s ease-out forwards;
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      will-change: transform, opacity;
     }
 
-    .gallery img:nth-child(2) {
-      animation-delay: 0.3s;
-    }
-
-    .gallery img:nth-child(3) {
-      animation-delay: 0.6s;
-    }
-
-    .gallery img:nth-child(4) {
-      animation-delay: 0.9s;
-    }
-
-    @keyframes slideIn {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    /* When visible, fly in */
+    .gallery img.slide-in {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .gallery img:hover {
@@ -127,13 +114,12 @@
       border-radius: 16px;
       padding: 30px 20px;
 
-      /* Hidden and shifted down initially */
       opacity: 0;
       transform: translateY(50px);
       transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      will-change: transform, opacity;
     }
 
-    /* When scrolled into view, slide up and fade in */
     .customers-box.slide-in {
       opacity: 1;
       transform: translateY(0);
@@ -221,20 +207,21 @@
     }
 
     document.addEventListener("DOMContentLoaded", () => {
+      const galleryImages = document.querySelectorAll('.gallery img');
       const customersBox = document.querySelector('.customers-box');
 
-      const observer = new IntersectionObserver((entries, observer) => {
+      const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             entry.target.classList.add('slide-in');
-            observer.unobserve(entry.target);
+          } else {
+            entry.target.classList.remove('slide-in');
           }
         });
       }, { threshold: 0.05 });
 
-      if(customersBox) {
-        observer.observe(customersBox);
-      }
+      galleryImages.forEach(img => observer.observe(img));
+      if (customersBox) observer.observe(customersBox);
     });
   </script>
 
