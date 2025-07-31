@@ -143,10 +143,10 @@
 
   <header>
     <img src="IMG_5288.png" alt="MD Header Logo">
-    <button class="toggle-btn" onclick="toggleDarkMode()">Toggle Mode</button>
+    <button class="toggle-btn" onclick="toggleDarkMode()" id="modeToggle">🌙 Dark Mode</button>
   </header>
 
-  <h1>Past work (Past Thumbnails)</h1>
+  <h1>Past Thumbnails</h1>
 
   <section class="gallery">
     <img src="251746A8-335D-49A1-AB30-D41A1B1E2152.jpeg" alt="Design One">
@@ -166,6 +166,9 @@
   <script>
     function toggleDarkMode() {
       document.body.classList.toggle("dark-mode");
+      const btn = document.getElementById("modeToggle");
+      const isDark = document.body.classList.contains("dark-mode");
+      btn.innerHTML = isDark ? "☀️ Light Mode" : "🌙 Dark Mode";
     }
   </script>
 
