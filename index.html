@@ -25,6 +25,9 @@
       background-color: var(--bg-color);
       color: var(--text-color);
       transition: background-color 0.3s, color 0.3s;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
     header {
@@ -85,6 +88,7 @@
       gap: 25px;
       padding: 40px 20px;
       justify-items: center;
+      flex-grow: 1;
     }
 
     .gallery img {
@@ -171,6 +175,16 @@
       font-size: 20px;
     }
 
+    .donation {
+      text-align: center;
+      padding: 15px 10px;
+      border-top: 1px solid var(--text-color);
+      font-size: 16px;
+      color: var(--text-color);
+      background-color: var(--header-bg);
+      user-select: all;
+    }
+
     @media (max-width: 600px) {
       .gallery {
         padding: 20px 10px;
@@ -215,12 +229,16 @@
     <h1>Customers</h1>
     <div class="customers-box">
       <div class="review">
-        <div class="name">Swag (First Customer)</div>
+        <div class="name">swag</div>
         <div class="text">That's awesome, you're the GOAT!</div>
         <div class="stars">★★★★★</div>
       </div>
     </div>
   </section>
+
+  <div class="donation">
+    Donated to me: <strong>eth</strong> 0x970f3a2c67A65B4c4AC5DDff0Ee6E4cD3491adF9
+  </div>
 
   <script>
     function toggleDarkMode() {
