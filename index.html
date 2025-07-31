@@ -72,8 +72,6 @@
       justify-content: center;
       padding: 40px 20px;
       gap: 25px;
-
-      /* Force enough height so scrolling is needed */
       min-height: 700px;
     }
 
@@ -84,18 +82,31 @@
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
       opacity: 0;
       transform: translateY(50px);
-      animation: slideIn 0.8s ease-out forwards;
+      animation-fill-mode: forwards;
     }
 
-    .gallery img:nth-child(2) {
+    .gallery img.slide-in {
+      animation-name: slideIn;
+      animation-duration: 0.8s;
+      animation-timing-function: ease-out;
+      animation-fill-mode: forwards;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .gallery img:nth-child(1).slide-in {
+      animation-delay: 0s;
+    }
+
+    .gallery img:nth-child(2).slide-in {
       animation-delay: 0.3s;
     }
 
-    .gallery img:nth-child(3) {
+    .gallery img:nth-child(3).slide-in {
       animation-delay: 0.6s;
     }
 
-    .gallery img:nth-child(4) {
+    .gallery img:nth-child(4).slide-in {
       animation-delay: 0.9s;
     }
 
@@ -108,6 +119,7 @@
 
     .gallery img:hover {
       transform: scale(1.03);
+      transition: transform 0.3s ease;
     }
 
     .customers {
@@ -127,13 +139,12 @@
       border-radius: 16px;
       padding: 30px 20px;
 
-      /* Hidden and shifted down initially */
       opacity: 0;
       transform: translateY(50px);
       transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      will-change: transform, opacity;
     }
 
-    /* When scrolled into view, slide up and fade in */
     .customers-box.slide-in {
       opacity: 1;
       transform: translateY(0);
@@ -187,56 +198,3 @@
   </style>
 </head>
 <body>
-
-  <header>
-    <img src="IMG_5288.png" alt="Mini Designs Header" />
-    <button class="toggle-btn" onclick="toggleDarkMode()" id="modeToggle">🌙 Dark Mode</button>
-  </header>
-
-  <h1>Past Thumbnails</h1>
-
-  <section class="gallery">
-    <img src="251746A8-335D-49A1-AB30-D41A1B1E2152.jpeg" alt="Design One" />
-    <img src="huge_pulls_watermark.jpg" alt="Design Two" />
-    <img src="swags_with_water.jpg" alt="Design Three" />
-  </section>
-
-  <section class="customers">
-    <h1>Customers</h1>
-    <div class="customers-box">
-      <div class="review">
-        <div class="name">swag</div>
-        <div class="text">That's awesome, you're the GOAT!</div>
-        <div class="stars">★★★★★</div>
-      </div>
-    </div>
-  </section>
-
-  <script>
-    function toggleDarkMode() {
-      document.body.classList.toggle("dark-mode");
-      const btn = document.getElementById("modeToggle");
-      const isDark = document.body.classList.contains("dark-mode");
-      btn.innerHTML = isDark ? "☀️ Light Mode" : "🌙 Dark Mode";
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      const customersBox = document.querySelector('.customers-box');
-
-      const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('slide-in');
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.05 });
-
-      if(customersBox) {
-        observer.observe(customersBox);
-      }
-    });
-  </script>
-
-</body>
-</html>
