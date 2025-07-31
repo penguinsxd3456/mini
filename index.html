@@ -76,21 +76,21 @@
 
     .gallery img {
       width: 100%;
-      max-width: 440px;
+      max-width: 470px;
       border-radius: 10px;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
       opacity: 0;
-      transform: translateY(50px) scale(1);
+      transform: translateY(50px);
       transition: opacity 0.8s ease-out, transform 0.8s ease-out;
     }
 
-    .gallery img.slide-in {
+    .gallery img.animate {
       opacity: 1;
-      transform: translateY(0) scale(1.05);
+      transform: translateY(0);
     }
 
     .gallery img:hover {
-      transform: translateY(0) scale(1.08);
+      transform: scale(1.05);
     }
 
     .customers {
@@ -114,7 +114,7 @@
       transition: opacity 0.8s ease-out, transform 0.8s ease-out;
     }
 
-    .customers-box.slide-in {
+    .customers-box.animate {
       opacity: 1;
       transform: translateY(0);
     }
@@ -132,13 +132,11 @@
       font-weight: bold;
       font-size: 18px;
       margin-bottom: 10px;
-      color: var(--text-color);
     }
 
     .review .text {
       font-style: italic;
       margin-bottom: 15px;
-      color: var(--text-color);
     }
 
     .stars {
@@ -146,29 +144,23 @@
       font-size: 20px;
     }
 
-    /* Contact Section */
     .contact-section {
       text-align: center;
-      margin: 50px 0;
+      margin: 50px auto;
     }
 
     .contact-btn {
-      padding: 12px 24px;
+      padding: 12px 20px;
       font-size: 16px;
-      background-color: transparent;
-      border: 2px solid var(--text-color);
-      color: var(--text-color);
       cursor: pointer;
+      border: 2px solid var(--text-color);
+      background: none;
+      color: var(--text-color);
       border-radius: 8px;
-      transition: 0.3s;
+      transition: background-color 0.3s, color 0.3s;
       opacity: 0;
       transform: translateY(50px);
-      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-    }
-
-    .contact-btn.slide-in {
-      opacity: 1;
-      transform: translateY(0);
+      transition: opacity 0.6s ease, transform 0.6s ease;
     }
 
     .contact-btn:hover {
@@ -176,32 +168,33 @@
       color: var(--bg-color);
     }
 
-    .contact-info {
-      display: none;
-      margin-top: 20px;
-      max-width: 400px;
-      margin-left: auto;
-      margin-right: auto;
-      background-color: var(--card-bg);
-      padding: 20px;
-      border-radius: 10px;
-      border: 2px solid var(--text-color);
-      opacity: 0;
-      transform: translateY(50px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-
-    .contact-info.show {
-      display: block;
-    }
-
-    .contact-info.slide-in {
+    .contact-btn.animate {
       opacity: 1;
       transform: translateY(0);
     }
 
+    .contact-info {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transform: scale(0.9) translateY(30px);
+      transition: max-height 0.6s ease, opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .contact-info.show {
+      max-height: 200px;
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+
     .contact-info p {
       margin: 10px 0;
+      font-size: 16px;
+    }
+
+    .contact-info a {
+      color: var(--text-color);
+      text-decoration: underline;
     }
 
     @media (max-width: 600px) {
@@ -254,7 +247,7 @@
     <button class="contact-btn">Contact Me</button>
     <div class="contact-info" id="contactInfo">
       <p>Email: <a href="mailto:minithumbnails@gmail.com">minithumbnails@gmail.com</a></p>
-      <p>Discord Server: <a href="https://discord.gg/T2uxFKyuZy" target="_blank">Join Here</a></p>
+      <p>Discord: <a href="https://discord.gg/T2uxFKyuZy" target="_blank">Join Server</a></p>
     </div>
   </section>
 
@@ -262,44 +255,42 @@
     function toggleDarkMode() {
       document.body.classList.toggle("dark-mode");
       const btn = document.getElementById("modeToggle");
-      const isDark = document.body.classList.contains("dark-mode");
-      btn.innerHTML = isDark ? "☀️ Light Mode" : "🌙 Dark Mode";
+      btn.innerHTML = document.body.classList.contains("dark-mode") ? "☀️ Light Mode" : "🌙 Dark Mode";
     }
 
-    // Scroll Observer
-    document.addEventListener("DOMContentLoaded", function () {
-      const animatedItems = document.querySelectorAll(
-        '.gallery img, .customers-box, .contact-btn, #contactInfo'
-      );
-
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.target.id === "contactInfo") {
-            if (entry.isIntersecting && contactInfo.classList.contains("show")) {
-              entry.target.classList.add("slide-in");
-            } else {
-              entry.target.classList.remove("slide-in");
-            }
-          } else {
-            if (entry.isIntersecting) {
-              entry.target.classList.add("slide-in");
-            } else {
-              entry.target.classList.remove("slide-in");
-            }
-          }
-        });
-      }, { threshold: 0.1 });
-
-      animatedItems.forEach(item => observer.observe(item));
-    });
-
-    // Contact toggle
     const contactBtn = document.querySelector('.contact-btn');
     const contactInfo = document.getElementById('contactInfo');
 
     contactBtn.addEventListener('click', () => {
       contactInfo.classList.toggle('show');
     });
+
+    const animatedItems = document.querySelectorAll('.gallery img, .customers-box, .contact-btn');
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        const isContactInfo = entry.target.id === 'contactInfo';
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate');
+          if (isContactInfo && contactInfo.classList.contains('show')) {
+            contactInfo.classList.add('show');
+          }
+        } else {
+          entry.target.classList.remove('animate');
+          if (isContactInfo) {
+            contactInfo.classList.remove('show');
+          }
+        }
+      });
+    }, { threshold: 0.1 });
+
+    animatedItems.forEach(item => observer.observe(item));
+    observer.observe(contactInfo);
+  </script>
+
+</body>
+</html>
+
   </script>
 
 </body>
