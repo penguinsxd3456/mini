@@ -182,7 +182,16 @@
       font-size: 16px;
       color: var(--text-color);
       background-color: var(--header-bg);
+      user-select: none;
+    }
+
+    .donation code {
       user-select: all;
+      cursor: text;
+      font-family: monospace, monospace;
+      background-color: transparent;
+      border-radius: 3px;
+      padding: 2px 6px;
     }
 
     @media (max-width: 600px) {
@@ -237,7 +246,7 @@
   </section>
 
   <div class="donation">
-    Donated to me: <strong>eth</strong> 0x970f3a2c67A65B4c4AC5DDff0Ee6E4cD3491adF9
+    Donated to me: <strong>eth</strong> <code id="donationAddress">0x970f3a2c67A65B4c4AC5DDff0Ee6E4cD3491adF9</code>
   </div>
 
   <script>
