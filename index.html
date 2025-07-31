@@ -87,13 +87,21 @@
     }
 
     .customers {
-      background-color: var(--header-bg);
-      padding: 50px 20px;
       text-align: center;
-      border: 11px solid var(--text-color);
       margin: 40px auto;
-      max-width: 275px;
+    }
+
+    .customers h1 {
+      margin-bottom: 20px;
+    }
+
+    .customers-box {
+      background-color: var(--header-bg);
+      border: 2px solid var(--text-color);
+      max-width: 500px;
+      margin: 0 auto;
       border-radius: 16px;
+      padding: 30px 20px;
     }
 
     .review {
@@ -146,7 +154,7 @@
 <body>
 
   <header>
-    <img src="IMG_5288.png" alt="MD Header Logo">
+    <img src="IMG_5288.png" alt="Mini Designs Header">
     <button class="toggle-btn" onclick="toggleDarkMode()" id="modeToggle">🌙 Dark Mode</button>
   </header>
 
@@ -160,10 +168,12 @@
 
   <section class="customers">
     <h1>Customers</h1>
-    <div class="review">
-      <div class="name">swag</div>
-      <div class="text">That's awesome, you're the GOAT!</div>
-      <div class="stars">★★★★★</div>
+    <div class="customers-box">
+      <div class="review">
+        <div class="name">swag</div>
+        <div class="text">That's awesome, you're the GOAT!</div>
+        <div class="stars">★★★★★</div>
+      </div>
     </div>
   </section>
 
